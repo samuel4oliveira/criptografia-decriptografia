@@ -1,17 +1,26 @@
-import string
 import funcoes
-chave = "sa"
+
+#recebendo chave e endereço do arquivo a ser (de)criptografado
+chave = "IC"
 path = "arquivo.txt"
 arquivo = open(path, 'r').read()
-chaveBinaria = " ".join(f"{ord(i):08b}" for i in chave)
-arquivoBinario = " ".join(f"{ord(i):08b}" for i in arquivo)
 
-if(len(arquivoBinario) % len(chaveBinaria) != 0):
-    arquivoBinario += ' 00000000'
+#transformando chave e arquivo em seus equivalentes binários
+chaveBinaria = funcoes.convert2Bin(chave)
+arquivoBinario = funcoes.convert2Bin(arquivo)
 
-listaArquivoBinario = arquivoBinario.split()
+escolha = 'd'
+if escolha == 'c' or escolha == 'C':
 
-resultado = ''
-for i in range(0, len(listaArquivoBinario), 2):
-    resultado += funcoes.xor(listaArquivoBinario[0], listaArquivoBinario[1])
-print(resultado)
+    #criptografando arquivo
+    resultado = funcoes.criptografar(chaveBinaria, arquivoBinario)
+
+elif escolha == 'd' or escolha == 'D':
+    
+    #decriptografando arquivo
+    resultado = funcoes.decriptografar(arquivo, chaveBinaria)
+
+#escrevendo resultado em arquivo
+arquivoResultado = open('resultado.txt', 'w+')
+arquivoResultado.write(resultado)
+arquivoResultado.close()
