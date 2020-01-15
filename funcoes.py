@@ -1,3 +1,4 @@
+import binascii
 def xor(x, y):
     ans = ""
     for i in range(len(x)):
@@ -11,7 +12,7 @@ def convert2Bin(chave, texto):
     if len(chave) == 8:
         return " ".join(f"{ord(i):08b}" for i in texto)
     if len(chave) == 16:
-        return " ".join(f"{ord(i):16b}" for i in texto)
+        return " ".join(f"{ord(i):08b}" for i in texto)
 
 def criptografar(chave, chaveBinaria, arquivoBinario):
     
@@ -23,31 +24,39 @@ def criptografar(chave, chaveBinaria, arquivoBinario):
     elif len(chave) == 16:
         if(len(arquivoBinario) % len(chaveBinaria) != 0):
             arquivoBinario += ' 0000000000000000'
-    listaArquivoBinario = arquivoBinario.split()
-    listaChaveBinaria = chaveBinaria.split()
-    print(listaArquivoBinario)
-    print(listaChaveBinaria)
+    
+    
+    chaveBinaria = chaveBinaria.replace(" ", "")
+    arquivoBinario = arquivoBinario.replace(" ", "")
+
+    print(chaveBinaria)
+    print(arquivoBinario)
 
     #efetuando operação XOR entre chave e arquivo
     resultado = ''
-    for i in range(0, len(listaArquivoBinario), 2):
-        resultado += xor(listaArquivoBinario[i], listaChaveBinaria[0])
-        resultado += xor(listaArquivoBinario[i+1], listaChaveBinaria[1])
-    
+    resultado += xor(arquivoBinario, chaveBinaria)
+    print(resultado)
     return resultado
 
 def decriptografar(chave, arquivo, chaveBinaria):
+    chaveBinaria = chaveBinaria.replace(" ", "")
 
-    #separando o arquivo em blocos do tamanho da chave
-    listaArquivoBinario = []
-    for i in range(0, len(arquivo), 8):
-        listaArquivoBinario.append(arquivo[i : i+8])
-    listaChaveBinaria = chaveBinaria.split()
+    print(chaveBinaria)
+    print(arquivo)
 
-    #efetuando operação XOR entre chave e arquivo, convertendo bin para string
-    resultado = ''
-    for i in range(0, len(listaArquivoBinario), 2):
-        resultado += chr(int(xor(listaArquivoBinario[i], listaChaveBinaria[0]), 2))
-        resultado += chr(int(xor(listaArquivoBinario[i+1], listaChaveBinaria[1]), 2))
-    
+    print(xor(arquivo, chaveBinaria))
+
+    #efetuando operação XOR entre chave e arquivo
+    aux = ''
+    aux += xor(arquivo, chaveBinaria)
+
+    resultado = '' 
+
+    print(aux[0 : 0+8])
+    print(int(aux[0 : 0+8], 2))
+    print(aux[0 : 0+8])
+    for i in range(0, len(aux), 8):
+        resultado += chr(int(aux[i : i+8], 2))
+
+    print(resultado)
     return resultado

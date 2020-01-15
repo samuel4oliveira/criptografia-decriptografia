@@ -9,7 +9,7 @@ arquivo = open(path, 'r').read()
 chaveBinaria = funcoes.convert2Bin(chave, chave)
 arquivoBinario = funcoes.convert2Bin(chave, arquivo)
 
-escolha = 'c'
+escolha = 'd'
 if escolha == 'c' or escolha == 'C':
 
     #criptografando arquivo
