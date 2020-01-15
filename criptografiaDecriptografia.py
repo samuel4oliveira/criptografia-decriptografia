@@ -1,13 +1,17 @@
-import binascii
-chave = "samuello"
+import string
+import funcoes
+chave = "sa"
 path = "arquivo.txt"
 arquivo = open(path, 'r').read()
-escolha = 'c'
+chaveBinaria = " ".join(f"{ord(i):08b}" for i in chave)
+arquivoBinario = " ".join(f"{ord(i):08b}" for i in arquivo)
 
-while(len(arquivo) % len(chave) != 0):
-    arquivo += '0'
+if(len(arquivoBinario) % len(chaveBinaria) != 0):
+    arquivoBinario += ' 00000000'
 
-# arquivoBinario = [bin(ord(x))[2:]for x in arquivo]
-# chaveBinaria = [bin(ord(x))[2:]for x in chave]
+listaArquivoBinario = arquivoBinario.split()
 
-print(arquivo)
+resultado = ''
+for i in range(0, len(listaArquivoBinario), 2):
+    resultado += funcoes.xor(listaArquivoBinario[0], listaArquivoBinario[1])
+print(resultado)
