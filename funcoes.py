@@ -7,16 +7,26 @@ def xor(x, y):
             ans += "0"
     return ans
 
-def convert2Bin(texto):
-    return " ".join(f"{ord(i):08b}" for i in texto)
+def convert2Bin(chave, texto):
+    if len(chave) == 8:
+        return " ".join(f"{ord(i):08b}" for i in texto)
+    if len(chave) == 16:
+        return " ".join(f"{ord(i):16b}" for i in texto)
 
-def criptografar(chaveBinaria, arquivoBinario):
-   
+def criptografar(chave, chaveBinaria, arquivoBinario):
+    
     #separando o arquivo em blocos do tamanho da chave
-    if(len(arquivoBinario) % len(chaveBinaria) != 0):
-        arquivoBinario += ' 00000000'
+    if len(chave) == 8:
+        
+        if(len(arquivoBinario) % len(chaveBinaria) != 0):
+            arquivoBinario += ' 00000000'
+    elif len(chave) == 16:
+        if(len(arquivoBinario) % len(chaveBinaria) != 0):
+            arquivoBinario += ' 0000000000000000'
     listaArquivoBinario = arquivoBinario.split()
     listaChaveBinaria = chaveBinaria.split()
+    print(listaArquivoBinario)
+    print(listaChaveBinaria)
 
     #efetuando operação XOR entre chave e arquivo
     resultado = ''
@@ -26,7 +36,7 @@ def criptografar(chaveBinaria, arquivoBinario):
     
     return resultado
 
-def decriptografar(arquivo, chaveBinaria):
+def decriptografar(chave, arquivo, chaveBinaria):
 
     #separando o arquivo em blocos do tamanho da chave
     listaArquivoBinario = []

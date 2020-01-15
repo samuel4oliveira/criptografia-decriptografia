@@ -1,24 +1,24 @@
 import funcoes
 
 #recebendo chave e endereço do arquivo a ser (de)criptografado
-chave = "IC"
+chave = "samuelsamuelsamu"
 path = "arquivo.txt"
 arquivo = open(path, 'r').read()
 
 #transformando chave e arquivo em seus equivalentes binários
-chaveBinaria = funcoes.convert2Bin(chave)
-arquivoBinario = funcoes.convert2Bin(arquivo)
+chaveBinaria = funcoes.convert2Bin(chave, chave)
+arquivoBinario = funcoes.convert2Bin(chave, arquivo)
 
-escolha = 'd'
+escolha = 'c'
 if escolha == 'c' or escolha == 'C':
 
     #criptografando arquivo
-    resultado = funcoes.criptografar(chaveBinaria, arquivoBinario)
+    resultado = funcoes.criptografar(chave, chaveBinaria, arquivoBinario)
 
 elif escolha == 'd' or escolha == 'D':
     
     #decriptografando arquivo
-    resultado = funcoes.decriptografar(arquivo, chaveBinaria)
+    resultado = funcoes.decriptografar(chave, arquivo, chaveBinaria)
 
 #escrevendo resultado em arquivo
 arquivoResultado = open('resultado.txt', 'w+')
